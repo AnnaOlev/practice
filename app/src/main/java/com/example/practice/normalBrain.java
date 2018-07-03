@@ -5,6 +5,7 @@ public class normalBrain extends Brain
     normalBrain(String s)
     {
         super(s);
+        newNormBrain();
     }
     public void newNormBrain()
     {
@@ -33,6 +34,7 @@ public class normalBrain extends Brain
         {
             health--;
         }
+        saveData();
     }
 }
 

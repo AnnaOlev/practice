@@ -1,5 +1,6 @@
 package com.example.practice;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,11 +8,15 @@ import android.view.View;
 
 public class MainMenu extends AppCompatActivity {
 
+    public static Context context;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
+        context = this;
     }
+
 
     public void RuleCLick(View view) {
         Intent intent1;
@@ -29,6 +34,7 @@ public class MainMenu extends AppCompatActivity {
         Intent intent3;
         intent3 = new Intent(MainMenu.this, newgame.class);
         startActivity(intent3);
+
     }
 
     public void GameClick1(View view) {

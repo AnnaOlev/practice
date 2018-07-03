@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 
 public class newgame extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,7 +17,9 @@ public class newgame extends AppCompatActivity {
 
     public void GameClick2 (View view) {
         Intent intent5;
+        EditText EditName = findViewById(R.id.editName);
         intent5 = new Intent (newgame.this, game.class);
+        intent5.putExtra("name", EditName.getText().toString());
         startActivity(intent5);
     }
 }
