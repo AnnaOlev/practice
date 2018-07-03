@@ -11,17 +11,17 @@ public class geekBrain extends Brain
         energy-=10;
         health++;
     }
-    public void changeDevel (boolean choice, String hemisphere)
+    public void changeDevel (String choice, String hemisphere)
     {
         energy-=5;
-        if(choice)
+        if ("yes".equals(choice))
         {
             if("left".equals(hemisphere))
                 left_dev+=5;
-            if("left".equals(hemisphere))
+            if("right".equals(hemisphere))
                 right_dev+=5;
         }
-        else
+        if ("no".equals(choice))
         {
             health--;
         }

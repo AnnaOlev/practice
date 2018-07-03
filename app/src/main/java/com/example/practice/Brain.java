@@ -9,5 +9,5 @@ public abstract class Brain
         this.name=name;
     }
     abstract public void сhangeHeal();
-    abstract public void changeDevel (boolean choice, String hemisphere);
+    abstract public void changeDevel (String choice, String hemisphere);
 }
