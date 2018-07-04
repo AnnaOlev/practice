@@ -15,8 +15,12 @@ public class game extends AppCompatActivity {
     public String tip;
     public String stat="";
     public String hemisphere;
+<<<<<<< HEAD
     public int datecons = 0;
     public int energyconst = 90;
+=======
+    String ending;
+>>>>>>> b0edf741e41bab885d86f6ce522daaca9bfdd257
     TextView name;
     TextView options;
     public normalBrain brain;
@@ -40,7 +44,7 @@ public class game extends AppCompatActivity {
             brain.newNormBrain();
             brain.saveData();
         }
-       if (stat.equals("prod"))
+       if (stat.equals("continue"))
         {
             brain.loadData();
             SharedPreferences sPref1 = getSharedPreferences("MyPref", MODE_PRIVATE);
@@ -58,6 +62,7 @@ public class game extends AppCompatActivity {
         brain.saveData();
         printName();
         printDann();
+        chekForEnd();
     }
 
     public void QuestClickLeft(View view) {
@@ -87,6 +92,7 @@ public class game extends AppCompatActivity {
         brain.сhangeHeal();
         brain.saveData();
         printDann();
+        chekForEnd();
     }
 
     public void printDann()
@@ -99,6 +105,7 @@ public class game extends AppCompatActivity {
         name = findViewById(R.id.name);
         name.setText(brain.name);
     }
+<<<<<<< HEAD
 
     private void Energy(){
         Calendar c = new GregorianCalendar();
@@ -130,5 +137,24 @@ public class game extends AppCompatActivity {
         SharedPreferences.Editor ed1 = sPref1.edit();
         ed1.putLong("d1", d1);
         ed1.apply();
+=======
+    public void chekForEnd()
+    {
+        if(brain.energy <= 0 || brain.health <= 0||brain.left_dev <= 0 || brain.right_dev <= 0)
+        {
+            if (brain.energy <= 0 || brain.health <= 0)
+            {
+                ending = "bank";
+            }
+            if (brain.left_dev <= 0 || brain.right_dev <= 0)
+            {
+                ending = "run";
+            }
+            Intent intent7;
+            intent7 = new Intent(game.this, ending.class);
+            intent7.putExtra("ending", ending);
+            startActivity(intent7);
+        }
+>>>>>>> b0edf741e41bab885d86f6ce522daaca9bfdd257
     }
 }

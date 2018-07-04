@@ -95,7 +95,7 @@ public class question extends AppCompatActivity {
         intent7 = new Intent (question.this, game.class);
         intent7.putExtra("hemisphere",result);
         intent7.putExtra("right",trues);
-        intent7.putExtra("stat", "prod");
+        intent7.putExtra("stat", "continue");
         startActivity(intent7);
     }
     public void trueQvest(String ind, String answer) {
