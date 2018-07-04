@@ -10,6 +10,7 @@ public class game extends AppCompatActivity {
     public String tip;
     public String stat="";
     public String hemisphere;
+    String ending;
     TextView name;
     TextView options;
     public normalBrain brain;
@@ -32,7 +33,7 @@ public class game extends AppCompatActivity {
             brain.saveData();
 
         }
-       if (stat.equals("prod"))
+       if (stat.equals("continue"))
         {
             brain.loadData();
         }
@@ -44,6 +45,7 @@ public class game extends AppCompatActivity {
         brain.saveData();
         printName();
         printDann();
+        chekForEnd();
     }
 
     public void QuestClickLeft(View view) {
@@ -70,6 +72,7 @@ public class game extends AppCompatActivity {
         brain.сhangeHeal();
         brain.saveData();
         printDann();
+        chekForEnd();
     }
     public void printDann()
     {
@@ -79,5 +82,23 @@ public class game extends AppCompatActivity {
     {
         name = findViewById(R.id.name);
         name.setText(brain.name);
+    }
+    public void chekForEnd()
+    {
+        if(brain.energy <= 0 || brain.health <= 0||brain.left_dev <= 0 || brain.right_dev <= 0)
+        {
+            if (brain.energy <= 0 || brain.health <= 0)
+            {
+                ending = "bank";
+            }
+            if (brain.left_dev <= 0 || brain.right_dev <= 0)
+            {
+                ending = "run";
+            }
+            Intent intent7;
+            intent7 = new Intent(game.this, ending.class);
+            intent7.putExtra("ending", ending);
+            startActivity(intent7);
+        }
     }
 }
