@@ -22,9 +22,10 @@ public class normalBrain extends Brain
 
     public void changeDevel (String choice, String hemisphere)
     {
-        energy-=5;
+
         if ("yes".equals(choice))
         {
+            energy-=5;
             if("left".equals(hemisphere))
                 left_dev+=5;
             if("right".equals(hemisphere))
@@ -32,6 +33,7 @@ public class normalBrain extends Brain
         }
         if ("no".equals(choice))
         {
+            energy-=5;
             health--;
         }
         saveData();

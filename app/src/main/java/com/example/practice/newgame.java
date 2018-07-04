@@ -20,6 +20,7 @@ public class newgame extends AppCompatActivity {
         EditText EditName = findViewById(R.id.editName);
         intent5 = new Intent (newgame.this, game.class);
         intent5.putExtra("name", EditName.getText().toString());
+        intent5.putExtra("stat", "new");
         startActivity(intent5);
     }
 }

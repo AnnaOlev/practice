@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 public class game extends AppCompatActivity {
     public String tip;
+    public String stat="";
     public String hemisphere;
     TextView name;
     TextView options;
@@ -18,15 +19,30 @@ public class game extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+
         Name = getIntent().getStringExtra("name");
+        stat= getIntent().getStringExtra("stat");
         brain = new normalBrain(Name);
-        brain.loadData();
-        name = findViewById(R.id.name);
-        name.setText(brain.name);
+
+
+        if (stat.equals("new"))
+        {
+            brain.name=Name;
+            brain.newNormBrain();
+            brain.saveData();
+
+        }
+       if (stat.equals("prod"))
+        {
+            brain.loadData();
+        }
+
         options = findViewById(R.id.options);
         String him = getIntent().getStringExtra("hemisphere");
         String answer= getIntent().getStringExtra("right");
         brain.changeDevel(answer, him);
+        brain.saveData();
+        printName();
         printDann();
     }
 
@@ -52,10 +68,16 @@ public class game extends AppCompatActivity {
     public void QuestClickHP(View view)
     {
         brain.сhangeHeal();
+        brain.saveData();
         printDann();
     }
     public void printDann()
     {
     options.setText("Жизней "+ brain.health +"/9"+"                      "+"БЭ "+brain.energy+"\n"+"Развитие левого полушария  "+brain.left_dev+"/100"+"\n"+"Развитие правого полушария  "+brain.right_dev+"/100");
+    }
+    public void printName()
+    {
+        name = findViewById(R.id.name);
+        name.setText(brain.name);
     }
 }

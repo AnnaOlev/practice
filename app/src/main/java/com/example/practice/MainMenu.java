@@ -40,6 +40,7 @@ public class MainMenu extends AppCompatActivity {
     public void GameClick1(View view) {
         Intent intent4;
         intent4 = new Intent (MainMenu.this, game.class);
+        intent4.putExtra("stat", "prod");
         startActivity(intent4);
     }
 
