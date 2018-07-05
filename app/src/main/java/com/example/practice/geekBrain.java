@@ -8,14 +8,15 @@ public class geekBrain extends Brain
     }
     public void сhangeHeal()
     {
-        energy-=10;
+        energy-=14;
         health++;
     }
     public void changeDevel (String choice, String hemisphere)
     {
-        energy-=5;
+
         if ("yes".equals(choice))
         {
+            energy-=5;
             if("left".equals(hemisphere))
                 left_dev+=5;
             if("right".equals(hemisphere))
@@ -23,7 +24,15 @@ public class geekBrain extends Brain
         }
         if ("no".equals(choice))
         {
+            energy-=5;
             health--;
         }
+    }
+    public void newGeekBrain()
+    {
+        left_dev=77;
+        right_dev=77;
+        health=3;
+        energy=100;
     }
 }

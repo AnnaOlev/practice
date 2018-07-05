@@ -1,54 +1,94 @@
 package com.example.practice;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import static com.example.practice.MainMenu.context;
+
 public class game extends AppCompatActivity {
     public String tip;
     public String stat="";
     public String hemisphere;
-
     String ending;
 
     TextView name;
     TextView options;
     public normalBrain brain;
+    public geekBrain gbrain;
     String Name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-
         Name = getIntent().getStringExtra("name");
         stat = getIntent().getStringExtra("stat");
-        brain = new normalBrain(Name);
 
 
         if (stat.equals("new"))
         {
-            brain.name=Name;
-            brain.newNormBrain();
-            brain.saveData();
+
+            tip= getIntent().getStringExtra("type");
+            SaveType();
+
+            if(tip.equals("normal"))
+            {
+                brain = new normalBrain(Name);
+                brain.name = Name;
+                brain.newNormBrain();
+                brain.saveData();
+            }
+            if(tip.equals("geek"))
+            {
+                gbrain = new geekBrain(Name);
+                gbrain.name = Name;
+                gbrain.newGeekBrain();
+                gbrain.saveData();
+            }
         }
        if (stat.equals("continue"))
         {
-            brain.loadData();
-            brain.Energy();
-            brain.Development();
+            LoadType();
+            if(tip.equals("normal"))
+            {
+                brain = new normalBrain(Name);
+                brain.loadData();
+                brain.Energy();
+                brain.Development();
+            }
+            if(tip.equals("geek"))
+            {
+                gbrain = new geekBrain(Name);
+                gbrain.loadData();
+                gbrain.Energy();
+                gbrain.Development();
+            }
         }
 
         options = findViewById(R.id.options);
         String him = getIntent().getStringExtra("hemisphere");
         String answer = getIntent().getStringExtra("right");
-        brain.changeDevel(answer, him);
-        brain.saveData();
-        printName();
-        printDann();
-        chekForEnd();
+        if(tip.equals("normal"))
+        {
+            brain.changeDevel(answer, him);
+            brain.saveData();
+            printName(brain.name);
+            printDann();
+            chekForEnd(brain.energy,brain.health,brain.right_dev,brain.left_dev);
+        }
+        if(tip.equals("geek"))
+        {
+            gbrain.changeDevel(answer, him);
+            gbrain.saveData();
+            printName(gbrain.name);
+            printDann();
+            chekForEnd(gbrain.energy,gbrain.health,gbrain.right_dev,gbrain.left_dev);
+        }
     }
 
     public void QuestClickLeft(View view) {
@@ -56,6 +96,7 @@ public class game extends AppCompatActivity {
         Intent intent6;
         intent6 = new Intent (game.this, question.class);
         intent6.putExtra("hemisphere", hemisphere);
+        intent6.putExtra("tip", tip);
         startActivity(intent6);
     }
 
@@ -64,6 +105,7 @@ public class game extends AppCompatActivity {
         Intent intent9;
         intent9 = new Intent (game.this, question.class);
         intent9.putExtra("hemisphere", hemisphere);
+        intent9.putExtra("tip", tip);
         startActivity(intent9);
     }
 
@@ -75,32 +117,45 @@ public class game extends AppCompatActivity {
 
     public void QuestClickHP(View view)
     {
-        brain.сhangeHeal();
-        brain.saveData();
-        printDann();
-        chekForEnd();
+        if(tip.equals("normal")) {
+            brain.сhangeHeal();
+            brain.saveData();
+            printDann();
+            chekForEnd(brain.energy, brain.health, brain.right_dev, brain.left_dev);
+        }
+        if(tip.equals("geek")) {
+            gbrain.сhangeHeal();
+            gbrain.saveData();
+            printDann();
+            chekForEnd(gbrain.energy, gbrain.health, gbrain.right_dev, gbrain.left_dev);
+        }
     }
 
     public void printDann()
     {
-    options.setText("Жизней "+ brain.health +"/9"+"                      "+"БЭ "+brain.energy+"\n"+"Развитие левого полушария  "+brain.left_dev+"/100"+"\n"+"Развитие правого полушария  "+brain.right_dev+"/100");
+        if(tip.equals("normal")) {
+            options.setText("Жизней " + brain.health + "/9" + "                      " + "БЭ " + brain.energy + "\n" + "Развитие левого полушария  " + brain.left_dev + "/100" + "\n" + "Развитие правого полушария  " + brain.right_dev + "/100");
+        }
+        if(tip.equals("geek")) {
+            options.setText("Жизней " + gbrain.health + "/3" + "                      " + "БЭ " + gbrain.energy + "\n" + "Развитие левого полушария  " + gbrain.left_dev + "/100" + "\n" + "Развитие правого полушария  " + gbrain.right_dev + "/100");
+    }
     }
 
-    public void printName()
+    public void printName(String brainName)
     {
         name = findViewById(R.id.name);
-        name.setText(brain.name);
+        name.setText(brainName);
     }
 
-    public void chekForEnd()
+    public void chekForEnd(int ener, int heal, int right, int left)
     {
-        if(brain.energy <= 0 || brain.health <= 0||brain.left_dev <= 0 || brain.right_dev <= 0)
+        if(ener <= 0 || heal <= 0||left <= 0 || right <= 0)
         {
-            if (brain.energy <= 0 || brain.health <= 0)
+            if (ener <= 0 || heal <= 0)
             {
                 ending = "bank";
             }
-            if (brain.left_dev <= 0 || brain.right_dev <= 0)
+            if (left <= 0 || right <= 0)
             {
                 ending = "run";
             }
@@ -110,5 +165,18 @@ public class game extends AppCompatActivity {
             startActivity(intent7);
         }
 
+    }
+
+    public void SaveType()
+    {
+        SharedPreferences sPref = context.getSharedPreferences("MyPref", Context.MODE_PRIVATE);
+        SharedPreferences.Editor ed = sPref.edit();
+        ed.putString("type",tip);
+        ed.commit();
+    }
+    public void LoadType()
+    {
+        SharedPreferences sPref = context.getSharedPreferences("MyPref", Context.MODE_PRIVATE);
+        tip = sPref.getString("type", tip);
     }
 }
