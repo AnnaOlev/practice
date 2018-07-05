@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import static com.example.practice.MainMenu.context;
 
@@ -129,6 +131,10 @@ public class game extends AppCompatActivity {
             printDann();
             chekForEnd(gbrain.energy, gbrain.health, gbrain.right_dev, gbrain.left_dev);
         }
+        Toast toast = Toast.makeText(getApplicationContext(),
+                "Ты согласился обменять энергию на жизни!", Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.show();
     }
 
     public void printDann()

@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.Toast;
 
 public class MainMenu extends AppCompatActivity {
 
@@ -58,14 +60,22 @@ public class MainMenu extends AppCompatActivity {
             intent4.putExtra("stat", "continue");
             startActivity(intent4);
         }
+        else {
+            Toast toast = Toast.makeText(getApplicationContext(),
+                    "Нельзя продолжить то, чего не было!", Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
+        }
     }
-public void saveNovelty()
-{
-    SharedPreferences sPref = context.getSharedPreferences("MyPref", Context.MODE_PRIVATE);
-    SharedPreferences.Editor ed = sPref.edit();
-    ed.putString("nov",novelty );
-    ed.commit();
-}
+
+    public void saveNovelty()
+    {
+        SharedPreferences sPref = context.getSharedPreferences("MyPref", Context.MODE_PRIVATE);
+        SharedPreferences.Editor ed = sPref.edit();
+        ed.putString("nov",novelty );
+        ed.commit();
+    }
+
     public void loadNovelty()
     {
         SharedPreferences sPref = context.getSharedPreferences("MyPref", Context.MODE_PRIVATE);
