@@ -1,23 +1,15 @@
 package com.example.practice;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-
 public class game extends AppCompatActivity {
     public String tip;
     public String stat="";
     public String hemisphere;
-
-    public int datecons = 0;
-    public int energyconst = 90;
 
     String ending;
 
@@ -25,8 +17,6 @@ public class game extends AppCompatActivity {
     TextView options;
     public normalBrain brain;
     String Name;
-    public long d1=0;
-    public long d2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,12 +37,8 @@ public class game extends AppCompatActivity {
        if (stat.equals("continue"))
         {
             brain.loadData();
-            SharedPreferences sPref1 = getSharedPreferences("MyPref", MODE_PRIVATE);
-            d1 = sPref1.getLong("d1", d1);
-            datecons = sPref1.getInt("datecons", datecons);
-            energyconst = sPref1.getInt("energyconst", energyconst);
-            Energy();
-            Development();
+            brain.Energy();
+            brain.Development();
         }
 
         options = findViewById(R.id.options);
@@ -104,39 +90,6 @@ public class game extends AppCompatActivity {
     {
         name = findViewById(R.id.name);
         name.setText(brain.name);
-    }
-
-
-    private void Energy(){
-        Calendar c = new GregorianCalendar();
-        int day = c.get(Calendar.DAY_OF_MONTH);
-        if (datecons != 0 && day != datecons){
-            brain.energy+= energyconst;
-            energyconst-= 5;
-        }
-        datecons = day;
-        SharedPreferences sPref1 = getSharedPreferences("MyPref", MODE_PRIVATE);
-        SharedPreferences.Editor ed1 = sPref1.edit();
-        ed1.putInt("datecons", datecons);
-        ed1.putInt("energyconst", energyconst);
-        ed1.apply();
-        brain.saveData();
-    }
-
-    private void Development() {
-        Date date = new Date();
-        d2 = date.getTime();
-        if (d1 != 0 && (d2 - d1) / 3600000 >= 1) {
-            long kof = (50 * ((d2 - d1) / 3600000)) / (72 - ((brain.left_dev + brain.right_dev) / 10));
-            brain.left_dev = (int) (brain.left_dev - kof);
-            brain.right_dev = (int) (brain.right_dev - kof);
-        }
-        d1 = d2;
-        brain.saveData();
-        SharedPreferences sPref1 = getSharedPreferences("MyPref", MODE_PRIVATE);
-        SharedPreferences.Editor ed1 = sPref1.edit();
-        ed1.putLong("d1", d1);
-        ed1.apply();
     }
 
     public void chekForEnd()
