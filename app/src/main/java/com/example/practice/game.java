@@ -10,12 +10,16 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Date;
+
 import static com.example.practice.MainMenu.context;
 
 public class game extends AppCompatActivity {
     public String tip;
     public String stat="";
     public String hemisphere;
+    public long newDate;
+    Date date1;
     String ending;
 
     TextView name;
@@ -34,7 +38,9 @@ public class game extends AppCompatActivity {
 
         if (stat.equals("new"))
         {
-
+            date1 = new Date();
+            newDate=date1.getTime();
+            SaveDate();
             tip= getIntent().getStringExtra("type");
             SaveType();
 
@@ -62,6 +68,8 @@ public class game extends AppCompatActivity {
                 brain.loadData();
                 brain.Energy();
                 brain.Development();
+                brain.saveData();
+
             }
             if(tip.equals("geek"))
             {
@@ -69,7 +77,9 @@ public class game extends AppCompatActivity {
                 gbrain.loadData();
                 gbrain.Energy();
                 gbrain.Development();
+                gbrain.saveData();
             }
+
         }
 
         options = findViewById(R.id.options);
@@ -81,7 +91,7 @@ public class game extends AppCompatActivity {
             brain.saveData();
             printName(brain.name);
             printDann();
-            chekForEnd(brain.energy,brain.health,brain.right_dev,brain.left_dev);
+            chekForEnd(brain.energy,brain.health,brain.right_dev,brain.left_dev, brain.name);
         }
         if(tip.equals("geek"))
         {
@@ -89,7 +99,7 @@ public class game extends AppCompatActivity {
             gbrain.saveData();
             printName(gbrain.name);
             printDann();
-            chekForEnd(gbrain.energy,gbrain.health,gbrain.right_dev,gbrain.left_dev);
+            chekForEnd(gbrain.energy,gbrain.health,gbrain.right_dev,gbrain.left_dev,gbrain.name);
         }
     }
 
@@ -123,13 +133,13 @@ public class game extends AppCompatActivity {
             brain.сhangeHeal();
             brain.saveData();
             printDann();
-            chekForEnd(brain.energy, brain.health, brain.right_dev, brain.left_dev);
+            chekForEnd(brain.energy, brain.health, brain.right_dev, brain.left_dev, brain.name);
         }
         if(tip.equals("geek")) {
             gbrain.сhangeHeal();
             gbrain.saveData();
             printDann();
-            chekForEnd(gbrain.energy, gbrain.health, gbrain.right_dev, gbrain.left_dev);
+            chekForEnd(gbrain.energy, gbrain.health, gbrain.right_dev, gbrain.left_dev, gbrain.name);
         }
         Toast toast = Toast.makeText(getApplicationContext(),
                 "Ты согласился обменять энергию на жизни!", Toast.LENGTH_SHORT);
@@ -139,6 +149,7 @@ public class game extends AppCompatActivity {
 
     public void printDann()
     {
+
         if(tip.equals("normal")) {
             options.setText("Жизней " + brain.health + "/9" + "                      " + "БЭ " + brain.energy + "\n" + "Развитие левого полушария  " + brain.left_dev + "/100" + "\n" + "Развитие правого полушария  " + brain.right_dev + "/100");
         }
@@ -153,10 +164,13 @@ public class game extends AppCompatActivity {
         name.setText(brainName);
     }
 
-    public void chekForEnd(int ener, int heal, int right, int left)
+    public void chekForEnd(int ener, int heal, int right, int left, String n)
     {
         if(ener <= 0 || heal <= 0||left <= 0 || right <= 0)
         {
+            LoadDate();
+            date1 = new Date();
+            long nowDate=date1.getTime();
             if (ener <= 0 || heal <= 0)
             {
                 ending = "bank";
@@ -168,6 +182,8 @@ public class game extends AppCompatActivity {
             Intent intent7;
             intent7 = new Intent(game.this, ending.class);
             intent7.putExtra("ending", ending);
+            intent7.putExtra("date", (nowDate-newDate)/3600000/24);
+            intent7.putExtra("name",n);
             startActivity(intent7);
         }
 
@@ -184,5 +200,17 @@ public class game extends AppCompatActivity {
     {
         SharedPreferences sPref = context.getSharedPreferences("MyPref", Context.MODE_PRIVATE);
         tip = sPref.getString("type", tip);
+    }
+    public void SaveDate()
+    {
+        SharedPreferences sPref = context.getSharedPreferences("MyPref", Context.MODE_PRIVATE);
+        SharedPreferences.Editor ed = sPref.edit();
+        ed.putLong("newDate",newDate);
+        ed.commit();
+    }
+    public void LoadDate()
+    {
+        SharedPreferences sPref = context.getSharedPreferences("MyPref", Context.MODE_PRIVATE);
+        newDate = sPref.getLong("newDate",newDate);
     }
 }
