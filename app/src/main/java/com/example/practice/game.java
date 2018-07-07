@@ -35,7 +35,6 @@ public class game extends AppCompatActivity {
         Name = getIntent().getStringExtra("name");
         stat = getIntent().getStringExtra("stat");
 
-
         if (stat.equals("new"))
         {
             date1 = new Date();
@@ -49,6 +48,8 @@ public class game extends AppCompatActivity {
                 brain = new normalBrain(Name);
                 brain.name = Name;
                 brain.newNormBrain();
+                brain.Energy();
+                brain.Development();
                 brain.saveData();
             }
             if(tip.equals("geek"))
@@ -56,6 +57,8 @@ public class game extends AppCompatActivity {
                 gbrain = new geekBrain(Name);
                 gbrain.name = Name;
                 gbrain.newGeekBrain();
+                gbrain.Energy();
+                gbrain.Development();
                 gbrain.saveData();
             }
         }
@@ -69,7 +72,6 @@ public class game extends AppCompatActivity {
                 brain.Energy();
                 brain.Development();
                 brain.saveData();
-
             }
             if(tip.equals("geek"))
             {

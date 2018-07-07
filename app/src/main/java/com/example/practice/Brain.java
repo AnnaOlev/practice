@@ -55,9 +55,12 @@ public abstract class Brain
     public void Energy(){
         Calendar c = new GregorianCalendar();
         int day = c.get(Calendar.DAY_OF_MONTH);
-        if (datecons != 0 && day != datecons){
-            energy+= energyconst;
-            energyconst-= 5;
+        int check = day - datecons;
+        if (datecons != 0 && day != datecons) {
+            for (int i = 0; i < check; i++) {
+                energy += energyconst;
+                energyconst -= 5;
+            }
         }
         datecons = day;
         saveData();
@@ -66,14 +69,12 @@ public abstract class Brain
     public void Development() {
         Date date = new Date();
         d2 = date.getTime();
-        if (d1 != 0 && (d2 - d1) / 3600000 >= 1) {
-            long kof = (50 * ((d2 - d1) / 3600000)) / (72 - ((left_dev + right_dev) / 10));
-            left_dev = (int) (left_dev - kof);
-            right_dev = (int) (right_dev - kof);
-        }
+            if (d1 != 0 && (d2 - d1) / 3600000 >= 1) {
+                long kof = (50 * ((d2 - d1) / 3600000)) / (72 - ((left_dev + right_dev) / 10));
+                left_dev = (int) (left_dev - kof);
+                right_dev = (int) (right_dev - kof);
+            }
         d1 = d2;
         saveData();
     }
-
-
 }

@@ -44,16 +44,14 @@ public class scores extends AppCompatActivity {
     }
 
     private void displayDatabaseInfo() {
-        // Создадим и откроем для чтения базу данных
+
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
-        // Зададим условие для выборки - список столбцов
         String[] projection = {
                 YourScores._ID,
                 YourScores.COLUMN_NAME,
                 YourScores.COLUMN_DAYS };
 
-        // Делаем запрос
         Cursor cursor = db.query(
                 YourScores.TABLE_NAME,
                 projection,
@@ -67,24 +65,20 @@ public class scores extends AppCompatActivity {
         TextView displayTextView2 = findViewById(R.id.info2);
 
         try {
-            // Узнаем индекс каждого столбца
+
             int idColumnIndex = cursor.getColumnIndex(YourScores._ID);
             int nameColumnIndex = cursor.getColumnIndex(YourScores.COLUMN_NAME);
             int dayColumnIndex = cursor.getColumnIndex(YourScores.COLUMN_DAYS);
 
-            // Проходим через все ряды
             while (cursor.moveToNext()) {
-                // Используем индекс для получения строки или числа
                 int currentID = cursor.getInt(idColumnIndex);
                 String currentName = cursor.getString(nameColumnIndex);
                 int currentAge = cursor.getInt(dayColumnIndex);
-                // Выводим значения каждого столбца
                 displayTextView1.append((
                         currentName + "\n"));
                 displayTextView2.append((currentAge + "\n"));
             }
         } finally {
-            // Всегда закрываем курсор после чтения
             cursor.close();
         }
     }
