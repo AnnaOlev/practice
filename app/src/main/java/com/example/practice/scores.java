@@ -12,8 +12,6 @@ import android.widget.TextView;
 import com.example.practice.data.DBContract.YourScores;
 import com.example.practice.data.DbHelper;
 
-import org.w3c.dom.Text;
-
 public class scores extends AppCompatActivity {
     public String stat, newName;
     public long newDate;
@@ -24,19 +22,19 @@ public class scores extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scores);
         mDbHelper = new DbHelper(this);
-        stat = getIntent().getStringExtra("status");
-        if (stat.equals("end")) {
+        stat = getIntent().getStringExtra("status"); // getting status
+        if (stat.equals("end")) { // end of game and adding score
             newName = getIntent().getStringExtra("name");
             newDate = getIntent().getLongExtra("day", newDate);
             insertScore();
         }
 
-        if (stat.equals("continue")) {
+        if (stat.equals("continue")) { // game is not over
         }
         displayDatabaseInfo();
     }
 
-    public void OneMoreReturnCLick(View view) {
+    public void OneMoreReturnCLick(View view) { // go to main menu
         Intent intent11;
         intent11 = new Intent(scores.this, MainMenu.class);
         intent11.putExtra("novelty", stat);
@@ -59,32 +57,30 @@ public class scores extends AppCompatActivity {
                 null,
                 null,
                 null,
-                YourScores.COLUMN_DAYS + " DESC");
+                YourScores.COLUMN_DAYS + " DESC"); // order by number of days
 
         TextView displayTextView1 = (TextView) findViewById(R.id.info1);
         TextView displayTextView2 = findViewById(R.id.info2);
 
         try {
 
-            int idColumnIndex = cursor.getColumnIndex(YourScores._ID);
             int nameColumnIndex = cursor.getColumnIndex(YourScores.COLUMN_NAME);
             int dayColumnIndex = cursor.getColumnIndex(YourScores.COLUMN_DAYS);
 
             while (cursor.moveToNext()) {
-                int currentID = cursor.getInt(idColumnIndex);
-                String currentName = cursor.getString(nameColumnIndex);
-                int currentAge = cursor.getInt(dayColumnIndex);
-                displayTextView1.append((
+                String currentName = cursor.getString(nameColumnIndex); // get current name
+                int currentDay = cursor.getInt(dayColumnIndex); // get current number of days
+                displayTextView1.append(( // display name
                         currentName + "\n"));
-                displayTextView2.append((currentAge + "\n"));
+                displayTextView2.append((currentDay + "\n")); // display number of days
             }
-        } finally {
+        } finally { // closing cursor
             cursor.close();
         }
     }
 
 
-    private void insertScore() {
+    private void insertScore() { // adding new score
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
         ContentValues values = new ContentValues();

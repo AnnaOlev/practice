@@ -2,12 +2,11 @@ package com.example.practice;
 
 public class normalBrain extends Brain
 {
-    normalBrain(String s)
+    normalBrain(String s) // constructor
     {
         super(s);
-        newNormBrain();
     }
-    public void newNormBrain()
+    public void newNormBrain() // data for normal brain
     {
         left_dev=50;
         right_dev=50;
@@ -20,7 +19,7 @@ public class normalBrain extends Brain
         health++;
     }
 
-    public void changeDevel (String choice, String hemisphere)
+    public void changeDevel (String choice, String hemisphere) // change development
     {
 
         if ("yes".equals(choice))

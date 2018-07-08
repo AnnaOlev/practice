@@ -7,7 +7,7 @@ public final class DBContract {
     private DBContract() {
     };
 
-    public static final class YourScores implements BaseColumns {
+    public static final class YourScores implements BaseColumns { // creating SQLite table
         public final static String TABLE_NAME = "scores";
 
         public final static String _ID = BaseColumns._ID;

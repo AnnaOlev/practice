@@ -3,6 +3,7 @@ package com.example.practice;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -196,7 +197,7 @@ public class game extends AppCompatActivity {
         SharedPreferences sPref = context.getSharedPreferences("MyPref", Context.MODE_PRIVATE);
         SharedPreferences.Editor ed = sPref.edit();
         ed.putString("type",tip);
-        ed.commit();
+        ed.apply();
     }
     public void LoadType()
     {
@@ -208,7 +209,7 @@ public class game extends AppCompatActivity {
         SharedPreferences sPref = context.getSharedPreferences("MyPref", Context.MODE_PRIVATE);
         SharedPreferences.Editor ed = sPref.edit();
         ed.putLong("newDate",newDate);
-        ed.commit();
+        ed.apply();
     }
     public void LoadDate()
     {

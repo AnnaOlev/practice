@@ -5,13 +5,15 @@ public class geekBrain extends Brain
     geekBrain(String s)
     {
         super(s);
-    }
+    } // constructor
+
     public void сhangeHeal()
     {
         energy-=14;
         health++;
     }
-    public void changeDevel (String choice, String hemisphere)
+
+    public void changeDevel (String choice, String hemisphere) // change development
     {
 
         if ("yes".equals(choice))
@@ -28,7 +30,7 @@ public class geekBrain extends Brain
             health--;
         }
     }
-    public void newGeekBrain()
+    public void newGeekBrain() // special data for geek brain
     {
         left_dev=77;
         right_dev=77;

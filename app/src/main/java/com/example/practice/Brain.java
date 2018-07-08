@@ -11,18 +11,18 @@ import static com.example.practice.MainMenu.context;
 
 public abstract class Brain
 {
-    protected int left_dev, right_dev, health, energy;
-    protected int datecons = 0;
-    protected int energyconst = 90;
-    public long d1=0;
-    public long d2;
+    protected int left_dev, right_dev, health, energy; // the first two - development of hemispheres
+    protected int datecons = 0; // day of last enter
+    protected int energyconst = 90; // energy day bonus
+    public long d1=0; // last enter time
+    public long d2; // new enter time
     protected String name;
     Brain(String name)
     {
         this.name=name;
-    }
+    } // constructor
     abstract public void сhangeHeal();
-    abstract public void changeDevel (String choice, String hemisphere);
+    abstract public void changeDevel (String choice, String hemisphere); // development changes
 
     public void saveData()
     {
