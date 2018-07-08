@@ -34,14 +34,14 @@ public class question extends AppCompatActivity {
         Intent intent = getIntent();
         result = intent.getStringExtra("hemisphere");
         tip= intent.getStringExtra("tip");
-        Parser();
-        final Random random = new Random();
-        int numq = 1;//random.nextInt(20);
+        choiceFile();   //file selection depending on type and hemisphere
+        final Random random = new Random(); //random choice of question number
+        int numq = random.nextInt(24);
         String strq = Integer.toString(numq);
 
 
         try {
-            while (parser.getEventType() != XmlPullParser.END_DOCUMENT) {
+            while (parser.getEventType() != XmlPullParser.END_DOCUMENT) { //receiving questions and answers from an xml file
                 if (parser.getEventType() == XmlPullParser.START_TAG) {
                     if (parser.getName().equals("question" + strq)) {
                         an1 = parser.getAttributeValue(0);
@@ -72,7 +72,7 @@ public class question extends AppCompatActivity {
 
     }
 
-    public void ReturnCick(View view) {
+    public void ReturnCick(View view) {    //user push processing
         switch(view.getId()) {
            case R.id.answer1:
                trueQvest(indqv, "1");
@@ -87,13 +87,19 @@ public class question extends AppCompatActivity {
                 trueQvest(indqv, "4");
                 break;
         }
-        Intent intent7;
+        Intent intent7;                //transition to game
         intent7 = new Intent (question.this, game.class);
         intent7.putExtra("hemisphere",result);
         intent7.putExtra("right",trues);
         intent7.putExtra("stat", "continue");
         startActivity(intent7);
     }
+
+
+
+
+
+
     public void trueQvest(String ind, String answer) {
         if (ind.equals(answer)) {
             trues="yes";
@@ -108,7 +114,7 @@ public class question extends AppCompatActivity {
         }
     }
 
-    public void Parser()
+    public void choiceFile()
     {
 
         if (tip.equals("normal")) {

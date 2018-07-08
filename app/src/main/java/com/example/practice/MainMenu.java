@@ -29,20 +29,20 @@ public class MainMenu extends AppCompatActivity {
     }
 
 
-    public void RuleCLick(View view) {
+    public void RuleCLick(View view) { //transition to rules
         Intent intent1;
         intent1 = new Intent(MainMenu.this, rules.class);
         startActivity(intent1);
     }
 
-    public void ScoreClick(View view) {
+    public void ScoreClick(View view) { //transition to records
         Intent intent2;
         intent2 = new Intent (MainMenu.this, scores.class);
         intent2.putExtra("status", "continue");
         startActivity(intent2);
     }
 
-    public void NewClick(View view) {
+    public void NewClick(View view) { //transition to a new game
         novelty="new";
         saveNovelty();
         Intent intent3;
@@ -51,9 +51,9 @@ public class MainMenu extends AppCompatActivity {
 
     }
 
-    public void GameClick1(View view) {
+    public void GameClick1(View view) { //continue the game
         loadNovelty();
-        if( novelty!=null && !novelty.equals("end"))
+        if( novelty!=null && !novelty.equals("end")) //check for the existence of the game
         {
             Intent intent4;
             intent4 = new Intent(MainMenu.this, game.class);
