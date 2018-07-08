@@ -18,11 +18,14 @@ public class newgame extends AppCompatActivity {
     }
 
     public void GameClick2 (View view) {
+
         ChekGeek= (CheckBox)findViewById(R.id.checkTypeGeek);
         ChecNormal=(CheckBox)findViewById(R.id.checkTypeNorm);
-        if(!(ChecNormal.isChecked()&&ChekGeek.isChecked())) {
+
+        if(!(ChecNormal.isChecked()&&ChekGeek.isChecked())) { //check for correctness
             if(ChekGeek.isChecked()||ChecNormal.isChecked()) {
-                Intent intent5;
+
+                Intent intent5;  //transition to game
                 EditText EditName = findViewById(R.id.editName);
                 intent5 = new Intent(newgame.this, game.class);
                 if (ChecNormal.isChecked())

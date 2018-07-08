@@ -35,11 +35,11 @@ public class game extends AppCompatActivity {
         Name = getIntent().getStringExtra("name");
         stat = getIntent().getStringExtra("stat");
 
-        if (stat.equals("new"))
+        if (stat.equals("new")) //update data for a new game
         {
             date1 = new Date();
             newDate=date1.getTime();
-            SaveDate();
+            SaveDate(); //saving dates for high scores
             tip= getIntent().getStringExtra("type");
             SaveType();
 
@@ -62,7 +62,7 @@ public class game extends AppCompatActivity {
                 gbrain.saveData();
             }
         }
-       if (stat.equals("continue"))
+       if (stat.equals("continue")) //data loading while continuing the game
         {
             LoadType();
             if(tip.equals("normal"))
@@ -87,13 +87,13 @@ public class game extends AppCompatActivity {
         options = findViewById(R.id.options);
         String him = getIntent().getStringExtra("hemisphere");
         String answer = getIntent().getStringExtra("right");
-        if(tip.equals("normal"))
+        if(tip.equals("normal"))                    //data change
         {
             brain.changeDevel(answer, him);
             brain.saveData();
             printName(brain.name);
             printDann();
-            chekForEnd(brain.energy,brain.health,brain.right_dev,brain.left_dev, brain.name);
+            chekForEnd(brain.energy,brain.health,brain.right_dev,brain.left_dev, brain.name);//check for the end of the game
         }
         if(tip.equals("geek"))
         {
@@ -101,11 +101,11 @@ public class game extends AppCompatActivity {
             gbrain.saveData();
             printName(gbrain.name);
             printDann();
-            chekForEnd(gbrain.energy,gbrain.health,gbrain.right_dev,gbrain.left_dev,gbrain.name);
+            chekForEnd(gbrain.energy,gbrain.health,gbrain.right_dev,gbrain.left_dev,gbrain.name);//check for the end of the game
         }
     }
 
-    public void QuestClickLeft(View view) {
+    public void QuestClickLeft(View view) { //transition to questions for the left hemisphere
         hemisphere = "left";
         Intent intent6;
         intent6 = new Intent (game.this, question.class);
@@ -114,7 +114,7 @@ public class game extends AppCompatActivity {
         startActivity(intent6);
     }
 
-    public void QuestClickRight(View view) {
+    public void QuestClickRight(View view) { //transition to questions for the right hemisphere
         hemisphere = "right";
         Intent intent9;
         intent9 = new Intent (game.this, question.class);
@@ -123,13 +123,13 @@ public class game extends AppCompatActivity {
         startActivity(intent9);
     }
 
-    public void GoHomeClick(View view) {
+    public void GoHomeClick(View view) { //transition to menu
         Intent intent8;
         intent8 = new Intent (game.this, MainMenu.class);
         startActivity(intent8);
     }
 
-    public void QuestClickHP(View view)
+    public void QuestClickHP(View view) //energy exchange for health
     {
         if(tip.equals("normal")) {
             brain.сhangeHeal();
@@ -149,15 +149,21 @@ public class game extends AppCompatActivity {
         toast.show();
     }
 
+
+
+
+
+
+
+
     public void printDann()
     {
-
         if(tip.equals("normal")) {
             options.setText("Жизней " + brain.health + "/9" + "                      " + "БЭ " + brain.energy + "\n" + "Развитие левого полушария  " + brain.left_dev + "/100" + "\n" + "Развитие правого полушария  " + brain.right_dev + "/100");
         }
         if(tip.equals("geek")) {
             options.setText("Жизней " + gbrain.health + "/3" + "                      " + "БЭ " + gbrain.energy + "\n" + "Развитие левого полушария  " + gbrain.left_dev + "/100" + "\n" + "Развитие правого полушария  " + gbrain.right_dev + "/100");
-    }
+        }
     }
 
     public void printName(String brainName)
@@ -170,7 +176,7 @@ public class game extends AppCompatActivity {
     {
         if(ener <= 0 || heal <= 0||left <= 0 || right <= 0)
         {
-            LoadDate();
+            LoadDate(); //loading start date
             date1 = new Date();
             long nowDate=date1.getTime();
             if (ener <= 0 || heal <= 0)
@@ -203,6 +209,8 @@ public class game extends AppCompatActivity {
         SharedPreferences sPref = context.getSharedPreferences("MyPref", Context.MODE_PRIVATE);
         tip = sPref.getString("type", tip);
     }
+
+
     public void SaveDate()
     {
         SharedPreferences sPref = context.getSharedPreferences("MyPref", Context.MODE_PRIVATE);
@@ -210,6 +218,8 @@ public class game extends AppCompatActivity {
         ed.putLong("newDate",newDate);
         ed.commit();
     }
+
+
     public void LoadDate()
     {
         SharedPreferences sPref = context.getSharedPreferences("MyPref", Context.MODE_PRIVATE);
