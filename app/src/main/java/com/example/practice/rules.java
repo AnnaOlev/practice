@@ -21,27 +21,27 @@ public class rules extends AppCompatActivity {
 
         TabHost.TabSpec tabSpec = tabHost.newTabSpec("tag1");
         tabSpec.setContent(R.id.linearLayout);
-        tabSpec.setIndicator("Начало");
+        tabSpec.setIndicator("1");
         tabHost.addTab(tabSpec);
 
         tabSpec = tabHost.newTabSpec("tag2");
         tabSpec.setContent(R.id.linearLayout2);
-        tabSpec.setIndicator("Полушария");
+        tabSpec.setIndicator("2");
         tabHost.addTab(tabSpec);
 
         tabSpec = tabHost.newTabSpec("tag3");
         tabSpec.setContent(R.id.linearLayout3);
-        tabSpec.setIndicator("Параметры");
+        tabSpec.setIndicator("3");
         tabHost.addTab(tabSpec);
 
         tabSpec = tabHost.newTabSpec("tag4");
         tabSpec.setContent(R.id.linearLayout4);
-        tabSpec.setIndicator("Конец");
+        tabSpec.setIndicator("4");
         tabHost.addTab(tabSpec);
 
         tabSpec = tabHost.newTabSpec("tag5");
         tabSpec.setContent(R.id.linearLayout5);
-        tabSpec.setIndicator("Рекорды");
+        tabSpec.setIndicator("5");
         tabHost.addTab(tabSpec);
 
         tabHost.setCurrentTab(0);

@@ -1,6 +1,7 @@
 package com.example.practice;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -47,6 +48,10 @@ public void choiceEnding()
         Toast toast = Toast.makeText(getApplicationContext(), "Твоя жизнь снова оказалась на дне ", Toast.LENGTH_LONG);
         toast.setGravity(Gravity.CENTER, 0, 0);
         toast.show();
+        MediaPlayer player = null;
+        if (player == null)
+            player = MediaPlayer.create(this, R.raw.dark);
+        player.start();
     }
     if(end.equals("run"))
     {
@@ -58,6 +63,10 @@ public void choiceEnding()
         Toast toast = Toast.makeText(getApplicationContext(), "Моя жизнь слишком проста для твоих сложных проблем ", Toast.LENGTH_LONG);
         toast.setGravity(Gravity.CENTER, 0, 0);
         toast.show();
+        MediaPlayer player = null;
+        if (player == null)
+            player = MediaPlayer.create(this, R.raw.hell1);
+        player.start();
     }
 }
 
