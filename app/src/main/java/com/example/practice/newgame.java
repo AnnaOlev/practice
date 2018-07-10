@@ -1,6 +1,7 @@
 package com.example.practice;
 
 import android.content.Intent;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -37,5 +38,17 @@ public class newgame extends AppCompatActivity {
                 startActivity(intent5);
             }
         }
+    }
+
+    public void normalClick(View view) {
+        FragmentManager manager = getSupportFragmentManager();
+        MyDialogFragment1 myDialogFragment = new MyDialogFragment1();
+        myDialogFragment.show(manager, "dialog");
+    }
+
+    public void geekClick(View view) {
+        FragmentManager manager = getSupportFragmentManager();
+        MyDialogFragment2 myDialogFragment = new MyDialogFragment2();
+        myDialogFragment.show(manager, "dialog");
     }
 }

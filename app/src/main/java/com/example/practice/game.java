@@ -4,10 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +29,7 @@ public class game extends AppCompatActivity {
     TextView options;
     public normalBrain brain;
     public geekBrain gbrain;
+
     String Name;
 
     @Override
@@ -52,6 +55,7 @@ public class game extends AppCompatActivity {
                 brain.Energy();
                 brain.Development();
                 brain.saveData();
+                normalArts();
             }
             if(tip.equals("geek"))
             {
@@ -61,6 +65,8 @@ public class game extends AppCompatActivity {
                 gbrain.Energy();
                 gbrain.Development();
                 gbrain.saveData();
+                geekArts();
+
             }
         }
        if (stat.equals("continue")) //data loading while continuing the game
@@ -73,6 +79,7 @@ public class game extends AppCompatActivity {
                 brain.Energy();
                 brain.Development();
                 brain.saveData();
+                normalArts();
             }
             if(tip.equals("geek"))
             {
@@ -81,6 +88,7 @@ public class game extends AppCompatActivity {
                 gbrain.Energy();
                 gbrain.Development();
                 gbrain.saveData();
+                geekArts();
             }
 
         }
@@ -94,6 +102,7 @@ public class game extends AppCompatActivity {
             brain.saveData();
             printName(brain.name);
             printDann();
+            normalArts();
             chekForEnd(brain.energy,brain.health,brain.right_dev,brain.left_dev, brain.name);//check for the end of the game
         }
         if(tip.equals("geek"))
@@ -102,6 +111,7 @@ public class game extends AppCompatActivity {
             gbrain.saveData();
             printName(gbrain.name);
             printDann();
+            geekArts();
             chekForEnd(gbrain.energy,gbrain.health,gbrain.right_dev,gbrain.left_dev,gbrain.name);//check for the end of the game
         }
     }
@@ -132,30 +142,10 @@ public class game extends AppCompatActivity {
 
     public void QuestClickHP(View view) //energy exchange for health
     {
-        if(tip.equals("normal")) {
-            brain.сhangeHeal();
-            brain.saveData();
-            printDann();
-            chekForEnd(brain.energy, brain.health, brain.right_dev, brain.left_dev, brain.name);
-        }
-        if(tip.equals("geek")) {
-            gbrain.сhangeHeal();
-            gbrain.saveData();
-            printDann();
-            chekForEnd(gbrain.energy, gbrain.health, gbrain.right_dev, gbrain.left_dev, gbrain.name);
-        }
-        Toast toast = Toast.makeText(getApplicationContext(),
-                "Ты согласился обменять энергию на жизни!", Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.CENTER, 0, 0);
-        toast.show();
+        FragmentManager manager = getSupportFragmentManager();
+        MyDialogFragment3 myDialogFragment = new MyDialogFragment3();
+        myDialogFragment.show(manager, "dialog");
     }
-
-
-
-
-
-
-
 
     public void printDann()
     {
@@ -193,6 +183,7 @@ public class game extends AppCompatActivity {
             intent7.putExtra("ending", ending);
             intent7.putExtra("date", (nowDate-newDate)/3600000/24);
             intent7.putExtra("name",n);
+            intent7.putExtra("type", tip);
             startActivity(intent7);
         }
 
@@ -225,5 +216,53 @@ public class game extends AppCompatActivity {
     {
         SharedPreferences sPref = context.getSharedPreferences("MyPref", Context.MODE_PRIVATE);
         newDate = sPref.getLong("newDate",newDate);
+    }
+
+    public void normalArts( ){
+        ImageView imageView = findViewById(R.id.gameart);
+        if (brain.left_dev+brain.right_dev>160){
+            imageView.setImageResource(R.drawable.fun);
+        }
+        else if ( brain.left_dev+ brain.right_dev<=160&& brain.left_dev+ brain.right_dev>100){
+            imageView.setImageResource(R.drawable.almostfun);
+        }
+        else if( brain.left_dev+ brain.right_dev<=100&& brain.left_dev+ brain.right_dev>60){
+            imageView.setImageResource(R.drawable.almostsad);
+
+        }
+        else{
+            imageView.setImageResource(R.drawable.sad);
+        }  }
+
+    public  void geekArts( ){
+        ImageView imageView = findViewById(R.id.gameart);
+        if (gbrain.left_dev+gbrain.right_dev>170){
+            imageView.setImageResource(R.drawable.happy1);
+        }
+        else if ( gbrain.left_dev+gbrain.right_dev<=170&&gbrain.left_dev+gbrain.right_dev>110){
+            imageView.setImageResource(R.drawable.almosthappy1);
+        }
+        else if(gbrain.left_dev+gbrain.right_dev<=110&&gbrain.left_dev+gbrain.right_dev>70){
+            imageView.setImageResource(R.drawable.almostsad1);
+
+        }
+        else{
+            imageView.setImageResource(R.drawable.sad1);
+        }
+    }
+
+    public void okClicked() {
+        if (tip.equals("normal")) {
+            brain.сhangeHeal();
+            brain.saveData();
+            printDann();
+            chekForEnd(brain.energy, brain.health, brain.right_dev, brain.left_dev, brain.name);
+        }
+        if (tip.equals("geek")) {
+            gbrain.сhangeHeal();
+            gbrain.saveData();
+            printDann();
+            chekForEnd(gbrain.energy, gbrain.health, gbrain.right_dev, gbrain.left_dev, gbrain.name);
+        }
     }
 }
