@@ -1,5 +1,6 @@
 package com.example.practice;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,13 +12,17 @@ import android.widget.Toast;
 
 public class MainMenu extends AppCompatActivity {
 
+    @SuppressLint("StaticFieldLeak")
     public static Context context;
     public String novelty;
+    SharedPreferences prefs = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
+        prefs = getSharedPreferences("сom.example.practice", MODE_PRIVATE);
+        onResume();
         context = this;
         Intent intent = getIntent();
         novelty= intent.getStringExtra("novelty");
@@ -80,5 +85,17 @@ public class MainMenu extends AppCompatActivity {
     {
         SharedPreferences sPref = context.getSharedPreferences("MyPref", Context.MODE_PRIVATE);
         novelty = sPref.getString("nov", novelty);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (prefs.getBoolean("firstrun", true)) {
+            Intent intentthefirst;
+            intentthefirst = new Intent(MainMenu.this, rules.class);
+            startActivity(intentthefirst);
+            prefs.edit().putBoolean("firstrun", false).commit();
+        }
     }
 }

@@ -83,9 +83,10 @@
     <Button
         android:id="@+id/returnhome"
         android:layout_width="208dp"
-        android:layout_height="wrap_content"
+        android:layout_height="47dp"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
+        android:background="@color/Buttons"
         android:onClick="GoHomeClick"
         android:text="@string/Return"
         android:textSize="18sp"
@@ -97,19 +98,20 @@
 
     <TextView
         android:id="@+id/name"
-        android:layout_width="144dp"
-        android:layout_height="33dp"
+        android:layout_width="152dp"
+        android:layout_height="41dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:textColor="@android:color/background_dark"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/buttonLeft"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.035"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/gameart"
-        app:layout_constraintVertical_bias="0.758" />
+        app:layout_constraintVertical_bias="0.734" />
 
     <TextView
         android:id="@+id/options"

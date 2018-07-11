@@ -23,17 +23,18 @@
 
     <TextView
         android:id="@+id/textView6"
-        android:layout_width="220dp"
-        android:layout_height="38dp"
+        android:layout_width="269dp"
+        android:layout_height="85dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="8dp"
         android:text="@string/type"
         android:textAlignment="center"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/startg"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editName"
         app:layout_constraintVertical_bias="0.0" />
@@ -41,9 +42,10 @@
     <Button
         android:id="@+id/startg"
         android:layout_width="135dp"
-        android:layout_height="wrap_content"
+        android:layout_height="55dp"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
+        android:background="@color/Buttons"
         android:onClick="GameClick2"
         android:text="@string/start"
         android:textAlignment="center"
@@ -58,33 +60,36 @@
     <CheckBox
         android:id="@+id/checkTypeNorm"
         android:layout_width="153dp"
-        android:layout_height="wrap_content"
+        android:layout_height="83dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Нормальный"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.093"
+        app:layout_constraintHorizontal_bias="0.088"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.799" />
+        app:layout_constraintVertical_bias="0.719" />
 
     <CheckBox
         android:id="@+id/checkTypeGeek"
         android:layout_width="149dp"
-        android:layout_height="wrap_content"
+        android:layout_height="83dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Гик"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.794"
         app:layout_constraintStart_toEndOf="@+id/checkTypeNorm"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.799" />
+        app:layout_constraintVertical_bias="0.72" />
 
     <ImageButton
         android:id="@+id/imageButton"

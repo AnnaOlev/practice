@@ -6,7 +6,7 @@
     <string name="records">Рекорды</string>
     <string name="name">Имя мозга</string>
     <string name="days">Дни жизни</string>
-    <string name="type">Выберите тип мозга</string>
+    <string name="type">Выберите тип мозга\nДля просмотра характеристик коснитесь изображения</string>
     <string name="start">Начать</string>
     <string name="hint1">Введите имя мозга</string>
     <string name="Return">Вернуться в меню</string>

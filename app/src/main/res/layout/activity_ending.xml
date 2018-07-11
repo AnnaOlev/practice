@@ -24,16 +24,18 @@
 
     <Button
         android:id="@+id/endToMenu"
-        android:layout_width="160dp"
-        android:layout_height="wrap_content"
+        android:layout_width="171dp"
+        android:layout_height="40dp"
         android:layout_marginBottom="52dp"
         android:layout_marginTop="8dp"
+        android:background="@color/Buttons"
         android:onClick="HomeCLick"
         android:text="Далее"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.947" />
+        app:layout_constraintVertical_bias="0.979" />
 </android.support.constraint.ConstraintLayout>
